@@ -1,0 +1,28 @@
+
+import express from 'express';
+const app = express();
+import dotenv from 'dotenv';
+import AuthRoutes from './routes/auth.js';
+import DbCon from './utils/db.js';
+dotenv.config();
+
+// mongoose connection
+DbCon();
+const port = process.env.PORT || 3000;
+
+app.use(express.urlencoded({ extended: true }));
+
+
+app.use(express.json());
+app.use("/auth", AuthRoutes);
+
+
+app.get('/', (req, res) => {
+    res.send('Welcome to the Note Taking Web App!');
+});
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running on:${port}`);
+});
+
