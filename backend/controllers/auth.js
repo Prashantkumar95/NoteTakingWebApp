@@ -46,7 +46,7 @@ const Login = async (req, res) => {
          return res.status(400).json({success:false,message: "Invalid credentials"});
       }
       
-      const token = await jwt.sign({email: existingUser.email, id: existingUser._id}, process.env.SECRET_KEY, {expiresIn: "3d"})
+      const token = await jwt.sign({email: existingUser.email, id: existingUser._id}, process.env.JWT_SECRET_KEY, {expiresIn: "3d"})
       res.cookie("token", token, {httpOnly: true,maxAge: 1000*60*60*24*3});
       
       res.status(200).json({success:true, message: "User logged in successfully"})
