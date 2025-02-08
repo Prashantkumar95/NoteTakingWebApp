@@ -6,6 +6,7 @@ import AuthRoutes from './routes/auth.js';
 import NoteRoutes from './routes/notes.js';
 import DbCon from './utils/db.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors'
 dotenv.config();
 
 // mongoose connection
@@ -14,7 +15,10 @@ const port = process.env.PORT || 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
+app.use(cors({
+    credentials:true,
+    origin:'http://localhost:5173/'
+}))
 
 app.use(express.json());
 app.use("/auth", AuthRoutes);
